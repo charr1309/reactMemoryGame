@@ -9,16 +9,17 @@ const bestScore = document.getElementById('bestScore');
 const cards = [];
 let guesses = 0;
 shown = [];
+let show;
 // const cards = [image1.jpg,image2.jpg,image3.jpg,image4.jpg,image5.jpg,image6.jpg,image7.jpg,image8.jpg,image9.jpg,image10.jpg]
 
 for(i=1; i<=10; i++){
-    cards.push(`images${i}.jpg`)
+    cards.push(`image${i}.jpg`)
 }
 
-button.addEventListener('click',startGame());
-button2.addEventListener('click', )
-yes.addEventListener('click', yesAnswer());
-no.addEventListener('click', checkAnswer());
+button.addEventListener('click',startGame);
+// button2.addEventListener('click', )
+yes.addEventListener('click', yesAnswer);
+no.addEventListener('click', checkAnswer);
 
 function yesAnswer(){
     if(shown.includes(`${cards[show]}`)){
@@ -32,8 +33,7 @@ function yesAnswer(){
         
 }
     
-
-function noAnswer(){
+function checkAnswer(){
     if(shown.includes(`${cards[show]}`)){
         seen = false;
         score++;
@@ -45,19 +45,14 @@ function noAnswer(){
         
 }
 
-
-
-
-
-
 function startGame(){
 
     if(guesses != 10){
-    const show = Math.floor(Math.random()) * cards.length;
+    show = Math.floor(Math.random()) * cards.length;
     img = document.createElement('img');
     img.src = `${cards[show]}`;
-    card.append(img.src);
-    document.body.card.append(card);
+    card.append(img);
+    // document.body.card.append(card);
     shown.push(`${cards[show]}`)
     }else{
         alert('Game Over');
