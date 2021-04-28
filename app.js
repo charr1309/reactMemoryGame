@@ -6,6 +6,7 @@ const yes = document.getElementById('yes');
 const no = document.getElementById('no');
 const scoreBox = document.getElementById('scoreDiv');
 const bestScore = document.getElementById('bestScore');
+const end = document.getElementById('stop');
 const cards = [];
 let guesses = 0;
 shown = [];
@@ -23,11 +24,20 @@ button.addEventListener('click',startGame);
 // button2.addEventListener('click', )
 yes.addEventListener('click', yesAnswer);
 no.addEventListener('click', checkAnswer);
+end.addEventListener('click', endGame);
+
+function endGame(){
+    shown = [];
+    card.removeChild(img);
+    score = 0;
+    scoreBox.textContent = 0;
+}
 
 function yesAnswer(){
     if(shown.includes(`${cards[show]}`)){
         seen = true;
         score++;
+        scoreBox.textContent = score;
         startGame();
     }else{
         alert('Incorrect reaponse');
@@ -37,9 +47,10 @@ function yesAnswer(){
 }
     
 function checkAnswer(){
-    if(shown.includes(`${cards[show]}`)){
+    if(!shown.includes(`${cards[show]}`)){
         seen = false;
         score++;
+        scoreBox.textContent = score;
         startGame();
     }else{
         alert('Incorrect reaponse');
