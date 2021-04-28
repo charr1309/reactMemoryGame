@@ -4,12 +4,15 @@ const button2 = document.getElementById('stop');
 const card = document.getElementById('imageContainer');
 const yes = document.getElementById('yes');
 const no = document.getElementById('no');
-const score = document.getElementById('scoreDiv');
+const scoreBox = document.getElementById('scoreDiv');
 const bestScore = document.getElementById('bestScore');
 const cards = [];
 let guesses = 0;
 shown = [];
 let show;
+let img;
+let score = 0;
+let seen = false;
 // const cards = [image1.jpg,image2.jpg,image3.jpg,image4.jpg,image5.jpg,image6.jpg,image7.jpg,image8.jpg,image9.jpg,image10.jpg]
 
 for(i=1; i<=10; i++){
@@ -46,10 +49,13 @@ function checkAnswer(){
 }
 
 function startGame(){
+    if(!img){
+        img = document.createElement('img');
+    }
 
     if(guesses != 10){
-    show = Math.floor(Math.random()) * cards.length;
-    img = document.createElement('img');
+    show = Math.floor(Math.random() * cards.length);
+    
     img.src = `${cards[show]}`;
     card.append(img);
     // document.body.card.append(card);
