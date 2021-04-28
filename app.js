@@ -5,15 +5,17 @@ const card = document.getElementById('imageContainer');
 const yes = document.getElementById('yes');
 const no = document.getElementById('no');
 const scoreBox = document.getElementById('scoreDiv');
-const bestScore = document.getElementById('bestScore');
+const bestScore = document.getElementById('bestScoreDiv');
 const end = document.getElementById('stop');
 const cards = [];
-let guesses = 0;
+let best = 0;
+
 shown = [];
 let show;
 let img;
 let score = 0;
 let seen = false;
+let guesses = -1;
 // const cards = [image1.jpg,image2.jpg,image3.jpg,image4.jpg,image5.jpg,image6.jpg,image7.jpg,image8.jpg,image9.jpg,image10.jpg]
 
 for(i=1; i<=10; i++){
@@ -28,51 +30,63 @@ end.addEventListener('click', endGame);
 
 function endGame(){
     shown = [];
-    card.removeChild(img);
+    if(img){
+        card.removeChild(img);
+    }
+    
     score = 0;
     scoreBox.textContent = 0;
 }
 
 function yesAnswer(){
-    if(shown.includes(`${cards[show]}`)){
+    console.log(shown.includes(cards[show]));
+    if(shown.includes(cards[show])){
         seen = true;
         score++;
         scoreBox.textContent = score;
-        startGame();
+        // startGame();
     }else{
         alert('Incorrect reaponse');
-        startGame();
+        // startGame();
     }
-        
+    shown.push(cards[show])
+    startGame();   
 }
     
 function checkAnswer(){
-    if(!shown.includes(`${cards[show]}`)){
+    console.log(!shown.includes(cards[show]));
+    if(!shown.includes(cards[show])){
         seen = false;
         score++;
         scoreBox.textContent = score;
-        startGame();
+        // startGame();
     }else{
         alert('Incorrect reaponse');
+        // startGame();
+        }
+        shown.push(cards[show]) 
         startGame();
-    }
-        
 }
 
 function startGame(){
+    guesses++;
     if(!img){
         img = document.createElement('img');
     }
 
-    if(guesses != 10){
+    if(guesses < 10){
     show = Math.floor(Math.random() * cards.length);
     
     img.src = `${cards[show]}`;
     card.append(img);
     // document.body.card.append(card);
-    shown.push(`${cards[show]}`)
+    
+    console.log(shown);
     }else{
         alert('Game Over');
+        best = best>score ? best : score;
+        bestScore.textContent = best;
+        endGame();
 
     }
 
